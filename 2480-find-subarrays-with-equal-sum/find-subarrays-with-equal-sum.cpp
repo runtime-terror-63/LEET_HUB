@@ -7,8 +7,7 @@ public:
         for(int i = 1; i<n; i++){
             sum = nums[i-1]+nums[i];
 
-            if(mpp.find(sum) != mpp.end()) return true;
-
+            if(mpp.find(sum) != mpp.end())return true;
             mpp[sum]++;
         }
         return false;
