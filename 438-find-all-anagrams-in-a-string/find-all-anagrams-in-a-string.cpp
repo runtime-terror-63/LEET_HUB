@@ -1,37 +1,31 @@
 class Solution {
 public:
     vector<int> findAnagrams(string s, string p) {
-        vector<int> ans;
-        unordered_map<char,int> m;
-        for(auto x:p)
-            m[x]++;
-        int count=m.size();
-        int i=0,j=0,k=p.size();
-        
-        
-        while(j<s.size())
-        {
-            if(m.find(s[j])!=m.end())
-            {
-                m[s[j]]--;
-                if(m[s[j]]==0)
-                    count--;
+        map<char, int>mpp;
+        for(auto it : p) mpp[it]++;
+        vector<int>ans;
+        int k = p.size();
+        int cnt = mpp.size();
+        int windowStart = 0;
+        for(auto windowEnd = 0; windowEnd<s.length(); windowEnd++){
+            if(mpp.find(s[windowEnd]) != mpp.end()){
+                mpp[s[windowEnd]]--;
+                if(mpp[s[windowEnd]]==0) cnt--;
             }
-            if(j-i+1<k)j++;
-            else if(j-i+1==k)
-            {
-                if(count==0)
-                    ans.push_back(i);
-                
-                if(m.find(s[i])!=m.end())
-                {
-                    m[s[i]]++;
-                    if(m[s[i]]==1)
-                        count++;
+
+            if(windowEnd-windowStart+1==k) {
+                if(cnt==0) ans.push_back(windowStart);
+
+                //slide the window
+                if(mpp.find(s[windowStart]) != mpp.end()){
+                    mpp[s[windowStart]]++;
+                    if( mpp[s[windowStart]]==1) cnt++;
                 }
-                i++;
-                j++;
+
+                 windowStart++;
             }
+
+           
         }
         return ans;
     }
