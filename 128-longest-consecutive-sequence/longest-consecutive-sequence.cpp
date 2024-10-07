@@ -1,19 +1,48 @@
+
+const int M=1e5;
 class Solution {
 public:
-    int longestConsecutive(vector<int>& nums) {
-        sort(nums.begin(), nums.end());
-        if(nums.size()==0) return nums.size();
-        int largest = 1, curr_cnt = 0, lastSmallest = INT_MIN;
-        for(int i = 0; i<nums.size(); i++){
-            if(nums[i]-1 == lastSmallest) {
-                curr_cnt +=1;
-                lastSmallest = nums[i];
-            }else if(nums[i] != lastSmallest){
-                curr_cnt = 1;
-                lastSmallest = nums[i];
-            }
-            largest = max(largest, curr_cnt);
+    
+    int rank[M],parent[M];
+    void fun(int x,int y)
+    {
+        parent[x]=y;
+    }
+    int loge(int x)
+    {
+        if(x==parent[x])
+            return 1;
+        if(rank[x]!=1)
+         return rank[x];
+        
+        return rank[x]=(1+loge(parent[x]));
+    }
+    int longestConsecutive(vector<int>& v) {
+        int n=v.size();
+        
+        unordered_map<int,int> mp;
+        for(int i=0;i<n;i++)
+        {
+            rank[i]=1;
+            parent[i]=i;
+            mp[v[i]]=i;
         }
-        return largest;
+        for(auto num:v)
+        {
+            
+            if(mp.count(num-1)!=0)
+            {
+                fun(mp[num],mp[num-1]);
+                // rank[mp[num-1]]+=rank[mp[num]];
+            }
+        }
+        
+        int ans=0;
+        for(int i=0;i<n;i++)
+        {
+            ans=max(ans,loge(i));
+        }
+        return  ans;
+        
     }
 };
