@@ -5,16 +5,14 @@ public:
         int sell = max(prices[buy]+1, prices.end());
         if(buy<sell)  */
 
-       int n = prices.size();
-        vector<int> maxPrices(n, 0);
-        maxPrices[n-1] = prices[n-1];
-        for(int i=n-2; i>=0; i--){
-            maxPrices[i] = max(maxPrices[i+1], prices[i]); 
+       int mini = prices[0], profit = 0, n = prices.size();
+        for (int i = 1; i < n; i++)
+        {
+            int cost = prices[i] - mini;
+        // cout << cost << endl;
+            profit = max(profit, cost);
+            mini = min(mini, prices[i]);
         }
-        int maxProfit = 0;
-        for(int i=0; i<n; i++){
-            maxProfit = max(maxProfit, maxPrices[i] - prices[i]); 
-        }
-        return maxProfit;
+        return profit;
     }
 };
