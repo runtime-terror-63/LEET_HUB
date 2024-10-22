@@ -1,27 +1,18 @@
 class Solution {
 public:
-
-    int func(vector<vector<int>>&dp, vector<int>&v, int ind, bool flag, int fee){
-        int n = v.size();
-        if(ind==n)return 0;
-        if(dp[ind][flag]!=-1) return dp[ind][flag];
-
-        int ans=0;
-
-        if(flag){
-            int take= -v[ind] + func(dp, v, ind+1, 0, fee);
-            int ntake= func(dp, v, ind+1, 1, fee);
-            ans=max(take, ntake);
-        }else{
-            int take= v[ind] + func(dp, v, ind+1, 1, fee) - fee;
-            int ntake= func(dp, v, ind+1, 0, fee);
-            ans=max(take, ntake);
-        }
-        return dp[ind][flag]=ans;
+    int maxProfitUtill(int ind, int buy, vector<int>&prices, int fees, vector<vector<int>>&dp, int n){
+        if(ind==n) return 0;
+        if(dp[ind][buy]!=-1) return dp[ind][buy];
+        long long profit =-1e9;
+        if(buy) profit = max(-prices[ind]+maxProfitUtill(ind+1, 0, prices, fees, dp, n),
+                              0 + maxProfitUtill(ind+1, 1, prices, fees, dp, n));
+        else profit = max(prices[ind]-fees + maxProfitUtill(ind+1, 1, prices, fees, dp, n),
+                           0 + maxProfitUtill(ind+1, 0, prices, fees, dp, n));
+        return dp[ind][buy] = (int)profit;
     }
     int maxProfit(vector<int>& prices, int fee) {
-        int n=prices.size();
+        int n = prices.size();
         vector<vector<int>>dp(n+1, vector<int>(2, -1));
-        return func(dp,prices,0,1,fee);
+        return maxProfitUtill(0, 1, prices, fee, dp, n);
     }
 };
