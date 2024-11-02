@@ -22,6 +22,8 @@ public:
             fn(root->right, ans, temp);
         }
 
+        temp.pop_back();
+
     }
     vector<string> binaryTreePaths(TreeNode* root) {
         vector<string>ans;
