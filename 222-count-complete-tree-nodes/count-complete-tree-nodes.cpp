@@ -15,9 +15,6 @@ public:
 int fn(TreeNode *root)
 {
 
-     if (root == nullptr) {
-            return 0;  
-        }
  queue<TreeNode *> q;
         q.push(root);
         cnt = 1;
@@ -37,6 +34,7 @@ int fn(TreeNode *root)
 }
 int countNodes(TreeNode *root)
 {
+    if(root==NULL) return 0;
   fn(root);
   return cnt;
 }
