@@ -77,6 +77,6 @@ void solve(unordered_map<TreeNode *, TreeNode *> &mpp, TreeNode *root, int start
     if (fl)
       maxi++;
   }
-  return maxi;
+  return maxi==-1 ? 0 : maxi;
     }
 };
