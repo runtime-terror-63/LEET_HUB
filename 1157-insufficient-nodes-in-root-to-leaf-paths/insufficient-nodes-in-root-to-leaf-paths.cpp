@@ -13,16 +13,17 @@ class Solution {
 public:
     TreeNode* sufficientSubset(TreeNode* root, int limit, int sum = 0) {
         if(root==NULL) return nullptr;
-       
+
         sum += root->val;
         if(!root->left && !root->right){
             if(sum<limit) return nullptr;
             return root;
         }
-        root->left =  sufficientSubset(root->left, limit, sum);
+
+        root->left = sufficientSubset(root->left, limit, sum);
         root->right =  sufficientSubset(root->right, limit, sum);
 
-        if(root->left==NULL && root->right ==NULL) return nullptr;
+        if(root->left==NULL && root->right==NULL) return nullptr;
         return root;
     }
 };
