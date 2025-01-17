@@ -1,18 +1,22 @@
 class Solution {
 public:
     int possibleStringCount(string word) {
-        int cnt = 1;
-        int totalCnt = 1;
-        for(int i=1; i<word.size(); i++){
-            if(word[i]==word[i-1]) cnt++;
+        int cnt = 1, totalcnt = 1;
+        int n = word.size();
+        for(int i = 1; i<n; i++){
+            if(word[i]==word[i-1]) {
+                cnt++;
+                cout<<cnt<<endl;
+            }
             else {
-             if(cnt>1) totalCnt+= cnt-1;
-              cnt = 1;
+                if(cnt>1) totalcnt += (cnt-1);
+               // cout<<"t- "<<totalcnt<<endl;
+                cnt = 1;
             }
         }
-       
-        if(cnt>1) totalCnt+= cnt-1;
 
-        return totalCnt;
+       // cout<<"next "<<cnt<<endl;
+        if(cnt>1) totalcnt += cnt-1;
+        return totalcnt;
     }
 };
