@@ -17,6 +17,6 @@ public:
     cnt++;
   }
 
-  return cnt;
+  return (int)cnt;
     }
 };
