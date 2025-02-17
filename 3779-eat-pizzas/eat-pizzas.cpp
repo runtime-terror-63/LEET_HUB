@@ -8,6 +8,7 @@ public:
   long long sum = 0;
   for(int i=1; i<=days; i+=2){
     sum += pizzas[l];
+    cout<<pizzas[l]<<endl;
     l--;
   }
 
@@ -15,6 +16,7 @@ public:
 
   for(int i=2; i<=days; i+=2){
     sum += pizzas[l];
+    cout<<pizzas[l]<<endl;
     l-=2;
   }
 
