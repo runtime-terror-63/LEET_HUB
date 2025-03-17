@@ -3,11 +3,12 @@ public:
     bool divideArray(vector<int>& nums) {
         map<int, int>mpp;
         for(auto it : nums) mpp[it]++;
-        int j=0;
+        int cnt = 0;
         for(auto it : mpp){
-            if(it.second%2==0)j++;
+            if(it.second%2==0) cnt++;
             else return false;
         }
-        return j==mpp.size();
+
+        return cnt==mpp.size();
     }
 };
