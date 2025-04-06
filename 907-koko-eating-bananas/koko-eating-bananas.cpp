@@ -1,9 +1,8 @@
 class Solution {
 public:
-
-    long long  func(vector<int> &arr, int n, int mid, int h)
+    long long func(vector<int> &arr, int n, int mid, int h)
 {
-  long long  total = 0;
+  long long total = 0;
   for (int i = 0; i < n; i++)
   {
     total += ceil((double)(arr[i]) / (double)(mid));
@@ -18,7 +17,8 @@ int findAns(vector<int> &arr, int n, int h)
   while (low <= high)
   {
     int mid = (low + high) >> 1;
-    if (func(arr, n, mid, h) <= h)
+    long long  ele = func(arr, n, mid, h);
+    if (ele <= h)
     {
       ans = min(ans, mid);
       high = mid - 1;
@@ -28,8 +28,9 @@ int findAns(vector<int> &arr, int n, int h)
   }
   return ans;
 }
-    int minEatingSpeed(vector<int>& piles, int h) {
-        int n = piles.size();
-        return findAns(piles, n, h);
-    }
+int minEatingSpeed(vector<int> &piles, int h)
+{
+  int n = piles.size();
+  return findAns(piles, n, h);
+}
 };
