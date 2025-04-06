@@ -1,30 +1,30 @@
 class Solution {
 public:
-    int func(vector<int>&arr, int mid, int n, int days){
-   int sum=0, totalcnt = 1;
-  for(int i=0; i<n; i++){
-    if(sum+arr[i]>mid){
-      totalcnt++;
-      sum = arr[i];
-    }else sum += arr[i];
+    int func(int mid, vector<int>& weights){
+  int day = 1, load = 0;
+  for(auto it : weights){
+    if(load + it > mid){
+      day++;
+      load = 0;
+    }
+    load += it;
   }
-  return totalcnt;
+  return day;
 }
-int minDays(vector<int>&arr, int n, int days){
-  int low = *max_element(arr.begin(), arr.end());
-  int high = accumulate(arr.begin(), arr.end(), 0);
-  int ans = 0;
+
+int shipWithinDays(vector<int>& weights, int days) {
+  int n = weights.size();
+  int low = *max_element(weights.begin(), weights.end());
+  int high = accumulate(weights.begin(), weights.end(), 0);
+  int ans = -1;
   while(low<=high){
-    int mid = (low+high)>>1;
-    if(func(arr, mid, n, days)<=days){
+    int mid = low + (high-low)/2;
+    int ele = func(mid, weights);
+    if(ele<=days){
       ans = mid;
       high = mid-1;
     }else low = mid+1;
   }
   return ans;
 }
-    int shipWithinDays(vector<int>& weights, int days) {
-        int n = weights.size();
-        return minDays(weights,n, days);
-    }
 };
