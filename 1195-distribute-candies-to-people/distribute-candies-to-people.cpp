@@ -7,8 +7,8 @@ public:
 // Output: [5,2,3]
 vector<int> distributeCandies(int candies, int num_people) {
         vector<int>arr(num_people, 0);
-        int i = 0, give = 1;
-        for(;;){
+        int give = 1;
+        for(int i = 0; i<=num_people; i++){
             if(candies==0) break;
             if(i==num_people) i = 0;
                 if(candies>=give){
@@ -19,7 +19,6 @@ vector<int> distributeCandies(int candies, int num_people) {
                 candies = 0;
                 }
             give++;
-            i++;
         }
         return arr;
     }
