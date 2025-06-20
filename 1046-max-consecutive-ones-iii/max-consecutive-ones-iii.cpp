@@ -1,18 +1,23 @@
 class Solution {
 public:
-    int longestOnes(vector<int>& nums, int k) {
-         int windowStart = 0;
-  int zeroCnt = 0;
-  int maxWindow = INT_MIN;
-  for(auto windowEnd = 0; windowEnd<nums.size(); windowEnd++){
-    if(nums[windowEnd]==0) zeroCnt++;
-    if(zeroCnt>k){
-      if(nums[windowStart]==0) 
-      zeroCnt--;
-      windowStart++;
+    int longestOnes(vector<int>& nums, int k) { 
+  int n = nums.size();
+  int l = 0, r = 0, maxFreq = 0, windowSize = 0;
+  int result = 0;
+  while(r<n){
+    if(nums[r]==1) maxFreq++;
+    windowSize = r-l+1;
+    int toReplace = windowSize - maxFreq;
+
+    if(toReplace>k){
+      if(nums[l]==1) maxFreq--;
+      l++;
     }
-    maxWindow = max(maxWindow, windowEnd-windowStart+1);
+
+    result = max(result, r-l+1);
+    r++;
   }
-  return maxWindow;
+  return result;
+        
     }
 };
