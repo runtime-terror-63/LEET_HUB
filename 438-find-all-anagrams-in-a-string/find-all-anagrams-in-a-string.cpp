@@ -1,29 +1,38 @@
 class Solution {
 public:
-    vector<int> findAnagrams(string s, string p) {
-  unordered_map<char, int>mpp;
-  vector<int>ds;
-  for(auto it : p) mpp[it]++;
-  int k = p.size();
-  int cnt = mpp.size();
-  int windowStart = 0;
-  for(auto windowEnd = 0; windowEnd<s.length(); windowEnd++){
-    if(mpp.find(s[windowEnd]) != mpp.end()){
-      mpp[s[windowEnd]]--;
-      if(mpp[s[windowEnd]]==0) cnt--;
+
+   bool isAnagram(unordered_map<char,int>& word1, unordered_map<char,int>& word2){
+    return word1 == word2;
+}
+    vector<int> findAnagrams(string txt, string pat) {
+    int n = txt.size();
+    int k = pat.size();
+
+    unordered_map<char, int> wordCnt;
+    for (char c : pat)
+        wordCnt[c]++;
+
+    unordered_map<char, int> substrCnt;
+    int windowStart = 0;
+    vector<int>ds;
+
+    for (int windowEnd = 0; windowEnd < n; windowEnd++) {
+        char c = txt[windowEnd];
+        substrCnt[c]++;
+
+        if (windowEnd - windowStart + 1 == k) {
+            if (isAnagram(wordCnt, substrCnt)) 
+            ds.push_back(windowStart);
+
+            char removeChar = txt[windowStart];
+            substrCnt[removeChar]--;
+            if (substrCnt[removeChar] == 0)
+                substrCnt.erase(removeChar);
+
+            windowStart++;
+        }
     }
 
-    if(windowEnd-windowStart+1==k){
-      if(cnt==0) ds.push_back(windowStart);
-
-      //slide the window
-      if(mpp.find(s[windowStart]) != mpp.end()){
-        mpp[s[windowStart]]++;
-        if(mpp[s[windowStart]]==1) cnt++;
-      }
-      windowStart++;
-    }
-  }
-  return ds;
+    return ds;
     }
 };
