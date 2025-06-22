@@ -14,10 +14,12 @@ bool bs(vector<int>&mat, int target){
 bool searchMatrix(vector<vector<int>>&mat, int target){
   int n = mat.size();
   int m = mat[0].size();
-  for(int i=0; i<n; i++){
-    if(mat[i][0]<=target && target <=mat[i][m-1])
-        if(bs(mat[i], target))
-          return true;
+  int row = 0, col = m-1;
+
+  while(row<n && col>=0){
+    if(mat[row][col]==target) return true;
+    else if(mat[row][col]<target) row++;
+    else col--;
   }
   return false;
     }
